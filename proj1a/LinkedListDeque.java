@@ -10,11 +10,11 @@ import java.util.function.IntConsumer;
 public class LinkedListDeque<T> {
     public class IntNode
     {
-        public T item;
-        public IntNode next;
-        public IntNode pre;
+        private T item;
+        private IntNode next;
+        private IntNode pre;
 
-        public IntNode(IntNode pre1,T x,IntNode next1)
+        private IntNode(IntNode pre1,T x,IntNode next1)
         {
             item = x;
             pre=pre1;
@@ -72,6 +72,7 @@ public class LinkedListDeque<T> {
 
     public T get(int idx)
     {
+        idx++;
         if(size<idx)return null;
         IntNode p = Sentinel.pre;
         while(idx!=0)
@@ -104,6 +105,7 @@ public class LinkedListDeque<T> {
 
     public T getRecursive(int index)
     {
+        index++;
         if(size< index)return null;
         else
         {
@@ -111,7 +113,7 @@ public class LinkedListDeque<T> {
         }
     }
 
-    public T getRecursive(int index,IntNode node)
+    private T getRecursive(int index,IntNode node)
     {
         if(index==0)return node.item;
         else
@@ -122,8 +124,6 @@ public class LinkedListDeque<T> {
 
 //    public static void main(String[] args)
 //    {
-//        LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
-//        lld1.addFirst(10);
-//        lld1.removeFirst();
+//
 //    }
 }
