@@ -1,3 +1,5 @@
+import com.sun.jdi.PrimitiveValue;
+
 import javax.net.ssl.SSLContext;
 import java.nio.file.StandardWatchEventKinds;
 import java.text.Format;
@@ -8,6 +10,9 @@ public class ArrayDeque<T> {
     private T[] items;
     private int size;
     private int front;
+
+    private int presize = 1;
+    private int prefront = 1;
 
     private int num;
 
@@ -37,8 +42,10 @@ public class ArrayDeque<T> {
     {
         num++;
         items[size] = x;
+        int q =size;
         size --;
         size = chage(size);
+        if(size>q)presize = 1;
         if(num==items.length)
         {
             front = items.length;
@@ -52,7 +59,9 @@ public class ArrayDeque<T> {
         num++;
         items[front] = x;
         front++;
+        int q = front;
         front = chage(front);
+        if(q<front)prefront =1;
         if(num== items.length)
         {
             front = items.length;
@@ -123,11 +132,13 @@ public class ArrayDeque<T> {
         if(!isEmpty())
         {
             num--;
-            if(size==items.length-1||size<front)
+            if(presize<=0||size==items.length-1)
             {
                 size++;
                 int len = items.length;
+                int q =size;
                 size = chage(size);
+                if(q>size)presize=-1;
                 if(size == 0)size++;
                 T t = items[size-1];
                 if ((front - size) * 4 <= len && len > 8)
@@ -157,11 +168,13 @@ public class ArrayDeque<T> {
         if(!isEmpty())
         {
             num--;
-            if(front==0||front>size)
+            if(prefront<=0||front==0)
             {
                 int len = items.length;
                 front--;
+                int q = front;
                 front = chage(front);
+                if(q<front)prefront = -1;
                 if(front ==len-1)front--;
                 T t = items[front+1];
                 if ((front - size) * 4 <= len && len > 8)
@@ -189,15 +202,11 @@ public class ArrayDeque<T> {
 //   public static void main(String[] args)
 //   {
 //       ArrayDeque e = new ArrayDeque();
-//       e.addFirst(0);
-//       e.get(0);     /// ==> 0
-//       e.removeLast();     // ==> 0
+//       e.addLast(0);
+//       e.addFirst(1);
+//       e.addFirst(2);
 //       System.out.println(e.removeLast());
-//       e.addLast(3);
-//       e.removeFirst();   //  ==> 3
-//       e.addLast(5);
-//       e.addLast(6);
-//       e.get(0);     // ==> 6
-//       System.out.println(e.get(0));
+//       System.out.println(e.removeLast());
+//       System.out.println(e.removeFirst());
 //    }
 }
