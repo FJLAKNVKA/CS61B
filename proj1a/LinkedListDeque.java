@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.function.IntConsumer;
 
 public class LinkedListDeque<T> {
-    public class IntNode
+    private class IntNode
     {
         private T item;
         private IntNode next;
@@ -22,7 +22,7 @@ public class LinkedListDeque<T> {
         }
     }
 
-    public IntNode first;
+    private IntNode first;
     private int size;
     private IntNode Sentinel;
     public LinkedListDeque()

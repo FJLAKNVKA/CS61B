@@ -19,13 +19,13 @@ public class ArrayDeque<T> {
         num = 0;
     }
 
-    public int chage(int x)
+    private int chage(int x)
     {
         x = (x% items.length + items.length )% items.length;
         return x;
     }
 
-    public void doublearray()
+    private void doublearray()
     {
         int len = items.length;
         T[] a = (T[]) new Object[len*2];
@@ -74,11 +74,12 @@ public class ArrayDeque<T> {
 
     public void printDeque()
     {
-        while(front!=size)
+        int idx = front;
+        while(idx!=size)
         {
-            front--;
-            front = chage(front);
-            System.out.println(items[front]);
+            idx--;
+            idx = chage(idx);
+            System.out.println(items[idx]);
         }
     }
 
@@ -87,18 +88,19 @@ public class ArrayDeque<T> {
        index++;
        if(index>num)return null;
        T t =null;
+       int idx = front;
        while(index!=0)
        {
            index--;
-           front--;
-           front = chage(front);
-           t = items[front];
+           idx--;
+           idx = chage(idx);
+           t = items[idx];
        }
        return t;
     }
 
 
-    public void checkcut()
+    private void checkcut()
     {
         if(items.length>8)
         {
@@ -184,26 +186,14 @@ public class ArrayDeque<T> {
         return null;
     }
 
-//    public static void main(String[] args)
-//    {
-//        ArrayDeque e = new ArrayDeque<Integer>();
-//        e.isEmpty();
-//        e.addFirst(1);
-//        e.isEmpty();
-//        e.addFirst(3);
-//        e.addFirst(4);
-//        e.addFirst(5);
-//        e.addFirst(6);
-//        e.addFirst(7);
-//
-//        e.removeLast();
-//
-//        e.addFirst(-4);
-//        e.addFirst(-5);
-//        e.addFirst(-6);
-//        e.addFirst(-7);
-//
-//        e.printDeque();
-//
-//    }
+   public static void main(String[] args)
+   {
+        ArrayDeque e = new ArrayDeque();
+        e.addFirst(0);
+        System.out.println(e.size());
+        e.get(0);      //==> 0
+        System.out.println(e.get(0));
+        e.addLast(2);
+        e.removeFirst();
+    }
 }
