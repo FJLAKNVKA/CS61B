@@ -186,14 +186,18 @@ public class ArrayDeque<T> {
         return null;
     }
 
-   public static void main(String[] args)
-   {
-        ArrayDeque e = new ArrayDeque();
-        e.addFirst(0);
-        System.out.println(e.size());
-        e.get(0);      //==> 0
-        System.out.println(e.get(0));
-        e.addLast(2);
-        e.removeFirst();
-    }
+//   public static void main(String[] args)
+//   {
+//       ArrayDeque e = new ArrayDeque();
+//       e.addFirst(0);
+//       e.get(0);     /// ==> 0
+//       e.removeLast();     // ==> 0
+//       System.out.println(e.removeLast());
+//       e.addLast(3);
+//       e.removeFirst();   //  ==> 3
+//       e.addLast(5);
+//       e.addLast(6);
+//       e.get(0);     // ==> 6
+//       System.out.println(e.get(0));
+//    }
 }
