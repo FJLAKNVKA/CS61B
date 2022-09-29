@@ -54,7 +54,7 @@ public class ArrayDeque<T> {
             size --;
             size = chage(size);
         }
-        if(size==items.length)size--;
+        if(size==items.length-1)size--;
         if(size>q)presize = 1;
         if(num==items.length)
         {
@@ -218,19 +218,20 @@ public class ArrayDeque<T> {
         return null;
     }
 
-   public static void main(String[] args)
-   {
-       ArrayDeque e = new ArrayDeque();
-       e.addLast(0);
-       e.removeFirst();    //==> 0
-       e.addLast(2);
-       e.addFirst(3);
-       e.addLast(4);
-       e.get(1);      //==> 2
-       e.addFirst(6);
-       e.removeLast();      //==> 4
-       e.removeLast();      //==> 2
-       e.removeFirst();     //==> 6
-       e.removeLast();      //==> 6
-    }
+//   public static void main(String[] args)
+//   {
+//       ArrayDeque e = new ArrayDeque();
+//       e.addLast(0);
+//       e.addLast(1);
+//       e.addLast(2);
+//       e.addLast(3);
+//       e.addLast(4);
+//       e.addLast(5);
+//       e.addLast(6);
+//       e.addLast(7);
+//       e.removeLast();      //==> 7
+//       e.addLast(9);
+//       e.addLast(10);
+//       e.removeLast();      //==> 9
+//    }
 }
