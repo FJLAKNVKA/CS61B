@@ -31,11 +31,17 @@ public class ArrayDeque<T> {
         return x;
     }
 
-    private void doublearray()
+    private void doublearray(int idx)
     {
         int len = items.length;
         T[] a = (T[]) new Object[len*2];
-        System.arraycopy(items,0,a,0,len);
+        int cnt = 0;
+        while (len!=0)
+        {
+            len--;
+            a[cnt++] = items[idx++];
+            idx = chage(idx);
+        }
         items =a;
     }
 
@@ -59,8 +65,9 @@ public class ArrayDeque<T> {
         if(size>q)presize = 1;
         if(num==items.length)
         {
+            int t=size;
             front = items.length;
-            doublearray();
+            doublearray(t+1);
             size = items.length-1;
         }
     }
@@ -85,8 +92,9 @@ public class ArrayDeque<T> {
         if(q>front)prefront = 1;
         if(num== items.length)
         {
+            int t = size;
             front = items.length;
-            doublearray();
+            doublearray(t+1);
             size = items.length-1;
         }
     }
@@ -224,12 +232,15 @@ public class ArrayDeque<T> {
 //       ArrayDeque e = new ArrayDeque();
 //       e.addFirst(0);
 //       e.addFirst(1);
-//       e.addLast(2);
-//       e.addLast(3);
-//       e.get(0);      //==> 1
-//       e.get(0);      //==> 1
-//       e.removeLast();      //==> 3
-//       e.removeFirst();    //==> 1
-//       System.out.println(e.get(0));    //==> 1
+//       e.addFirst(2);
+//       e.addFirst(3);
+//       e.get(2);      //==> 1
+//       e.addFirst(5);
+//       e.addLast(6);
+//       e.addFirst(7);
+//       e.get(3);      //==> 2
+//       e.addLast(9);
+//
+//       System.out.println(e.removeFirst());//     ==> 6
 //    }
 }
