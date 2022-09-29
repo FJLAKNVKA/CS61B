@@ -36,6 +36,7 @@ public class ArrayDeque<T> {
         int len = items.length;
         T[] a = (T[]) new Object[len*2];
         int cnt = 0;
+        idx = chage(idx);
         while (len!=0)
         {
             len--;
@@ -234,13 +235,10 @@ public class ArrayDeque<T> {
 //       e.addFirst(1);
 //       e.addFirst(2);
 //       e.addFirst(3);
-//       e.get(2);      //==> 1
+//       e.addFirst(4);
 //       e.addFirst(5);
-//       e.addLast(6);
+//       e.addFirst(6);
 //       e.addFirst(7);
-//       e.get(3);      //==> 2
-//       e.addLast(9);
-//
-//       System.out.println(e.removeFirst());//     ==> 6
+//       System.out.println(7);
 //    }
 }
