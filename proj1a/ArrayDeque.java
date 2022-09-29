@@ -45,14 +45,16 @@ public class ArrayDeque<T> {
         if(presize==-1)
         {
             size --;
+            size = chage(size);
             items[size] = x;
         }
         else
         {
             items[size] = x;
             size --;
+            size = chage(size);
         }
-        size = chage(size);
+        if(size==items.length)size--;
         if(size>q)presize = 1;
         if(num==items.length)
         {
@@ -69,15 +71,17 @@ public class ArrayDeque<T> {
         if(prefront==-1)
         {
             front++;
+            front = chage(front);
             items[front] = x;
         }
         else
         {
             items[front] = x;
             front++;
+            front = chage(front);
         }
-        front = chage(front);
-        if(q<front)prefront =1;
+        if(front==0)front++;
+        if(q>front)prefront = 1;
         if(num== items.length)
         {
             front = items.length;
@@ -214,43 +218,19 @@ public class ArrayDeque<T> {
         return null;
     }
 
-//   public static void main(String[] args)
-//   {
-//       ArrayDeque e = new ArrayDeque();
-//       e.addLast(0);
-//       e.addLast(1);
-//       e.addLast(2);
-//       System.out.println(e.removeLast());// ==> 2
-//       System.out.println(e.get(1));// ==> 1
-//
-//       e.addFirst(5);
-//       System.out.println(e.removeFirst());
-//         //==> 5
-//       e.addLast(7);
-//       System.out.println(e.get(1));
-//             //==> 1
-//       e.addLast(9);
-//
-//       System.out.println(e.get(2));
-//             //==> 7
-//       e.addLast(11);
-//       System.out.println(e.removeLast());
-//             //==> 11
-//
-//       System.out.println(e.get(2));
-//             //==> 7
-//       e.addLast(14);
-//       e.addLast(15);
-//
-//       System.out.println(e.removeFirst());
-//            //==> 0
-//       e.addLast(17);
-//
-//       System.out.println(e.removeLast());
-//             //==> 17
-//       e.addLast(19);
-//       e.addFirst(20);
-//       System.out.println(e.get(6));
-//             //==> 5
-//    }
+   public static void main(String[] args)
+   {
+       ArrayDeque e = new ArrayDeque();
+       e.addLast(0);
+       e.removeFirst();    //==> 0
+       e.addLast(2);
+       e.addFirst(3);
+       e.addLast(4);
+       e.get(1);      //==> 2
+       e.addFirst(6);
+       e.removeLast();      //==> 4
+       e.removeLast();      //==> 2
+       e.removeFirst();     //==> 6
+       e.removeLast();      //==> 6
+    }
 }
