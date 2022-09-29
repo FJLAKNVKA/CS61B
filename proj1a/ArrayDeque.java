@@ -1,6 +1,7 @@
 import com.sun.jdi.PrimitiveValue;
 
 import javax.net.ssl.SSLContext;
+import java.lang.reflect.GenericArrayType;
 import java.nio.file.StandardWatchEventKinds;
 import java.text.Format;
 import java.util.function.DoubleToLongFunction;
@@ -116,14 +117,13 @@ public class ArrayDeque<T> {
     {
        if(index > num)return null;
        T t =null;
-       int idx = front;
+       int idx = front-1;
        while(index!=0)
        {
            index--;
            idx--;
-           idx = chage(idx);
        }
-       if(items[idx]==null)return items[chage(--idx)];
+       idx = chage(idx);
        t = items[idx];
        return t;
     }
@@ -222,7 +222,14 @@ public class ArrayDeque<T> {
 //   public static void main(String[] args)
 //   {
 //       ArrayDeque e = new ArrayDeque();
-//       e.addLast(0);
-//       System.out.println(e.get(0));
+//       e.addFirst(0);
+//       e.addFirst(1);
+//       e.addLast(2);
+//       e.addLast(3);
+//       e.get(0);      //==> 1
+//       e.get(0);      //==> 1
+//       e.removeLast();      //==> 3
+//       e.removeFirst();    //==> 1
+//       System.out.println(e.get(0));    //==> 1
 //    }
 }
