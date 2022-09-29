@@ -33,6 +33,7 @@ public class ArrayDeque<T> {
 
     private void doublearray(int idx)
     {
+        if(presize==-1)idx--;
         int len = items.length;
         T[] a = (T[]) new Object[len*2];
         int cnt = 0;
@@ -113,9 +114,13 @@ public class ArrayDeque<T> {
 
     public void printDeque()
     {
-        int idx = front;
-        while(idx!=size)
+        int idx;
+        if(prefront==-1)idx=front;
+        else idx = front-1;
+        int t= num;
+        while(t!=0)
         {
+            t--;
             idx--;
             idx = chage(idx);
             System.out.println(items[idx]);
@@ -126,7 +131,9 @@ public class ArrayDeque<T> {
     {
        if(index > num)return null;
        T t =null;
-       int idx = front-1;
+       int idx;
+       if(prefront!=-1)idx = front-1;
+       else idx = front;
        while(index!=0)
        {
            index--;
@@ -231,14 +238,26 @@ public class ArrayDeque<T> {
 //   public static void main(String[] args)
 //   {
 //       ArrayDeque e = new ArrayDeque();
-//       e.addFirst(0);
-//       e.addFirst(1);
-//       e.addFirst(2);
-//       e.addFirst(3);
+//       e.addLast(0);
+//       e.removeFirst();     //==> 0
+//       e.addLast(2);
+//       e.removeLast();     //==> 2
 //       e.addFirst(4);
-//       e.addFirst(5);
-//       e.addFirst(6);
+//       e.addLast(5);
+//       e.addLast(6);
 //       e.addFirst(7);
-//       System.out.println(7);
+//       e.addFirst(8);
+//       e.addLast(9);
+//       e.removeLast();     //==> 9
+//       e.removeFirst();    //==> 8
+//       e.removeFirst();    //==> 7
+//       e.removeFirst();    //==> 4
+//       e.removeFirst();    //==> 5
+//       e.removeLast();     //==> 6
+//       e.addLast(16);
+//       e.addLast(17);
+//       e.removeLast();     // ==> 17
+//                 //==> 17
+//       System.out.println(e.get(0));
 //    }
 }
