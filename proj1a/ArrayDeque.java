@@ -41,9 +41,17 @@ public class ArrayDeque<T> {
     public void addLast(T x)
     {
         num++;
-        items[size] = x;
         int q =size;
-        size --;
+        if(presize==-1)
+        {
+            size --;
+            items[size] = x;
+        }
+        else
+        {
+            items[size] = x;
+            size --;
+        }
         size = chage(size);
         if(size>q)presize = 1;
         if(num==items.length)
@@ -57,9 +65,17 @@ public class ArrayDeque<T> {
     public void addFirst(T x)
     {
         num++;
-        items[front] = x;
-        front++;
         int q = front;
+        if(prefront==-1)
+        {
+            front++;
+            items[front] = x;
+        }
+        else
+        {
+            items[front] = x;
+            front++;
+        }
         front = chage(front);
         if(q<front)prefront =1;
         if(num== items.length)
@@ -94,8 +110,7 @@ public class ArrayDeque<T> {
 
     public T get(int index)
     {
-       index++;
-       if(index>num)return null;
+       if(index > num)return null;
        T t =null;
        int idx = front;
        while(index!=0)
@@ -103,8 +118,8 @@ public class ArrayDeque<T> {
            index--;
            idx--;
            idx = chage(idx);
-           t = items[idx];
        }
+       t = items[idx];
        return t;
     }
 
@@ -203,10 +218,39 @@ public class ArrayDeque<T> {
 //   {
 //       ArrayDeque e = new ArrayDeque();
 //       e.addLast(0);
-//       e.addFirst(1);
-//       e.addFirst(2);
-//       System.out.println(e.removeLast());
-//       System.out.println(e.removeLast());
+//       e.addLast(1);
+//       e.addLast(2);
+//       System.out.println(e.removeLast());// ==> 2
+//       System.out.println(e.get(1));// ==> 1
+//
+//       e.addFirst(5);
 //       System.out.println(e.removeFirst());
+//         //==> 5
+//       e.addLast(7);
+//       System.out.println(e.get(1));
+//             //==> 1
+//       e.addLast(9);
+//
+//       System.out.println(e.get(2));
+//             //==> 7
+//       e.addLast(11);
+//       System.out.println(e.removeLast());
+//             //==> 11
+//
+//       System.out.println(e.get(2));
+//             //==> 7
+//       e.addLast(14);
+//       e.addLast(15);
+//
+//       System.out.println(e.removeFirst());
+//            //==> 0
+//       e.addLast(17);
+//
+//       System.out.println(e.removeLast());
+//             //==> 17
+//       e.addLast(19);
+//       e.addFirst(20);
+//       System.out.println(e.get(6));
+//             //==> 5
 //    }
 }
