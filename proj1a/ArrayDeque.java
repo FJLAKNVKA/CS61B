@@ -123,6 +123,7 @@ public class ArrayDeque<T> {
            idx--;
            idx = chage(idx);
        }
+       if(items[idx]==null)return items[chage(--idx)];
        t = items[idx];
        return t;
     }
@@ -222,16 +223,6 @@ public class ArrayDeque<T> {
 //   {
 //       ArrayDeque e = new ArrayDeque();
 //       e.addLast(0);
-//       e.addLast(1);
-//       e.addLast(2);
-//       e.addLast(3);
-//       e.addLast(4);
-//       e.addLast(5);
-//       e.addLast(6);
-//       e.addLast(7);
-//       e.removeLast();      //==> 7
-//       e.addLast(9);
-//       e.addLast(10);
-//       e.removeLast();      //==> 9
+//       System.out.println(e.get(0));
 //    }
 }
