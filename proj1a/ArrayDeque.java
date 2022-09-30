@@ -38,9 +38,10 @@ public class ArrayDeque<T> {
         T[] a = (T[]) new Object[len];
         int cnt = 0;
         idx = chage(idx);
-        while (len!=0)
+        int Num=num;
+        while (Num!=0)
         {
-            len--;
+            Num--;
             a[cnt++] = items[idx++];
             idx = chage(idx);
         }
@@ -217,7 +218,7 @@ public class ArrayDeque<T> {
                 if (num * 4 <= items.length && items.length > 8)
                 {
                     resize(items.length/2,size+1);
-                    front = 0;
+                    front = num;
                     size = items.length-1;
                 }
                 return t;
@@ -229,22 +230,28 @@ public class ArrayDeque<T> {
 //   public static void main(String[] args)
 //   {
 //       ArrayDeque e = new ArrayDeque();
-//       e.addFirst(0);
-//       e.removeLast();      //==> 0
-//       e.addFirst(2);
+//       e.addLast(0);
+//       e.get(0);      //==> 0
+//       e.removeFirst();     //==> 0
 //       e.addFirst(3);
-//       e.addFirst(4);
+//       e.addLast(4);
 //       e.addFirst(5);
-//       e.removeLast();      //==> 2
-//       e.addLast(7);
-//       e.removeLast();      //==> 7
+//       e.get(0);      //==> 5
+//       e.addFirst(7);
+//       e.addFirst(8);
 //       e.addFirst(9);
-//       e.get(1);     // ==> 5
-//       e.get(2);      //==> 4
-//       e.addFirst(12);
-//       e.removeLast();      //==> 3
-//       e.removeLast();      //==> 4
-//       e.addFirst(15);
+//       e.addLast(10);
+//       e.removeLast();      //==> 10
+//       e.addLast(12);
+//       e.addLast(13);
+//       e.get(5);      //==> 4
+//       e.removeFirst();     //==> 9
+//       e.get(5);      //==> 12
+//       e.removeFirst();     //==> 8
+//       e.get(5);      //==> 13
+//       e.removeLast();     // ==> 13
+//       e.removeFirst();     //==> 7
+//             //==> 7
 //       System.out.println(e.get(3));
 //    }
 }
