@@ -4,6 +4,7 @@ import javax.net.ssl.SSLContext;
 import java.lang.reflect.GenericArrayType;
 import java.nio.file.StandardWatchEventKinds;
 import java.text.Format;
+import java.time.Period;
 import java.util.function.DoubleToLongFunction;
 
 public class ArrayDeque<T> {
@@ -64,7 +65,7 @@ public class ArrayDeque<T> {
             size --;
             size = chage(size);
         }
-        if(size==items.length-1)size--;
+        if(size==items.length-1&& presize==-1)size--;
         if(size>q)presize = 1;
         if(num==items.length)
         {
@@ -91,7 +92,7 @@ public class ArrayDeque<T> {
             front++;
             front = chage(front);
         }
-        if(front==0)front++;
+        if(front==0&&prefront==-1)front++;
         if(q>front)prefront = 1;
         if(num== items.length)
         {
@@ -228,27 +229,22 @@ public class ArrayDeque<T> {
 //   public static void main(String[] args)
 //   {
 //       ArrayDeque e = new ArrayDeque();
-//       e.addLast(0);
-//       e.addFirst(1);
-//       e.get(1);      //==> 0
-//       e.addLast(3);
-//       e.get(0);     // ==> 1
-//       e.addLast(5);
-//       e.removeFirst();     //==> 1
+//       e.addFirst(0);
+//       e.removeLast();      //==> 0
+//       e.addFirst(2);
+//       e.addFirst(3);
+//       e.addFirst(4);
+//       e.addFirst(5);
+//       e.removeLast();      //==> 2
 //       e.addLast(7);
-//       e.addFirst(8);
-//       e.addLast(9);
-//       e.get(4);      //==> 7
-//       e.addFirst(11);
-//       e.removeLast();      //==> 9
-//       e.addLast(13);
-//       e.addFirst(14);
-//       e.get(0);      //==> 14
-//       e.removeFirst();     //==> 14
-//       e.removeFirst();     //==> 11
-//       e.removeLast();      //==> 13
 //       e.removeLast();      //==> 7
-//            //==> 8
+//       e.addFirst(9);
+//       e.get(1);     // ==> 5
+//       e.get(2);      //==> 4
+//       e.addFirst(12);
+//       e.removeLast();      //==> 3
+//       e.removeLast();      //==> 4
+//       e.addFirst(15);
 //       System.out.println(e.get(3));
 //    }
 }
