@@ -207,7 +207,7 @@ public class ArrayDeque<T> {
                     T[] a = (T[]) new Object[l];
                     resize(l,size+1);
                     front = num;
-                    size = items.length;
+                    size = items.length-1;
                 }
                 return t;
             }
@@ -227,31 +227,18 @@ public class ArrayDeque<T> {
         return null;
     }
 
-//   public static void main(String[] args)
-//   {
-//       ArrayDeque e = new ArrayDeque();
-//       e.addLast(0);
-//       e.get(0);      //==> 0
-//       e.removeFirst();     //==> 0
-//       e.addFirst(3);
-//       e.addLast(4);
-//       e.addFirst(5);
-//       e.get(0);      //==> 5
-//       e.addFirst(7);
-//       e.addFirst(8);
-//       e.addFirst(9);
-//       e.addLast(10);
-//       e.removeLast();      //==> 10
-//       e.addLast(12);
-//       e.addLast(13);
-//       e.get(5);      //==> 4
-//       e.removeFirst();     //==> 9
-//       e.get(5);      //==> 12
-//       e.removeFirst();     //==> 8
-//       e.get(5);      //==> 13
-//       e.removeLast();     // ==> 13
-//       e.removeFirst();     //==> 7
-//             //==> 7
-//       System.out.println(e.get(3));
-//    }
+   public static void main(String[] args)
+   {
+       ArrayDeque e = new ArrayDeque();
+       for(int i=1;i<=100;i++)
+       {
+           e.addLast(i);
+       }
+       for(int i=1;i<=75;i++)
+       {
+           e.removeFirst();
+       }
+       e.removeLast();
+       System.out.println(e.get(0));
+    }
 }
