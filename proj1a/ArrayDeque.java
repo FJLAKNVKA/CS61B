@@ -31,11 +31,10 @@ public class ArrayDeque<T> {
         return x;
     }
 
-    private void doublearray(int idx)
+    private void resize(int len,int idx)
     {
         if(presize==-1)idx--;
-        int len = items.length;
-        T[] a = (T[]) new Object[len*2];
+        T[] a = (T[]) new Object[len];
         int cnt = 0;
         idx = chage(idx);
         while (len!=0)
@@ -44,6 +43,8 @@ public class ArrayDeque<T> {
             a[cnt++] = items[idx++];
             idx = chage(idx);
         }
+        presize = 1;
+        prefront = 1;
         items =a;
     }
 
@@ -68,8 +69,8 @@ public class ArrayDeque<T> {
         if(num==items.length)
         {
             int t=size;
-            front = items.length;
-            doublearray(t+1);
+            front = num;
+            resize(items.length*2,t+1);
             size = items.length-1;
         }
     }
@@ -95,8 +96,8 @@ public class ArrayDeque<T> {
         if(num== items.length)
         {
             int t = size;
-            front = items.length;
-            doublearray(t+1);
+            front = num;
+            resize(items.length*2,t+1);
             size = items.length-1;
         }
     }
@@ -144,25 +145,6 @@ public class ArrayDeque<T> {
        return t;
     }
 
-
-    private void checkcut()
-    {
-        if(items.length>8)
-        {
-            int r = items.length - size - 1;
-            int len = front + r;
-            if (items.length >= len * 4)
-            {
-                int l = (items.length) / 2;
-                T[] a =(T[]) new Object [l];
-                if (front != 0) System.arraycopy(items, 0, a, 0, front);
-                if (r != 0) System.arraycopy(items, size + 1, a, l - r, r);
-                size = l - r - 1;
-                items = a;
-            }
-        }
-    }
-
     public T removeLast()
     {
         if(!isEmpty())
@@ -177,14 +159,13 @@ public class ArrayDeque<T> {
                 if(q>size)presize=-1;
                 if(size == 0)size++;
                 T t = items[size-1];
-                if ((front - size) * 4 <= len && len > 8)
+                if (num * 4 <= len && len > 8)
                 {
                     int l = len / 2;
                     T[] a = (T[]) new Object[l];
-                    if(front!=size)System.arraycopy(items, size, a, 0, front - size);
-                    size = l - 1;
-                    front = front-size;
-                    items = a;
+                    resize(l,size+1);
+                    front = num;
+                    size = items.length-1;
                 }
                 return t;
             }
@@ -192,7 +173,12 @@ public class ArrayDeque<T> {
             {
                 T t = items[size+1];
                 size++;
-                checkcut();
+                if (num * 4 <= items.length && items.length > 8)
+                {
+                    resize (items.length/2,size+1);
+                    front = num;
+                    size = items.length-1;
+                }
                 return t;
             }
         }
@@ -213,14 +199,13 @@ public class ArrayDeque<T> {
                 if(q<front)prefront = -1;
                 if(front ==len-1)front--;
                 T t = items[front+1];
-                if ((front - size) * 4 <= len && len > 8)
+                if (num * 4 <= len && len > 8)
                 {
                     int l = len / 2;
                     T[] a = (T[]) new Object[l];
-                    if(front!=size)System.arraycopy(items, size + 1, a, l-(size-front), size-front);
-                    size = l-(size-front)-1;
-                    front = 0;
-                    items = a;
+                    resize(l,size+1);
+                    front = num;
+                    size = items.length;
                 }
                 return t;
             }
@@ -228,7 +213,12 @@ public class ArrayDeque<T> {
             {
                 T t = items[front-1];
                 front--;
-                checkcut();
+                if (num * 4 <= items.length && items.length > 8)
+                {
+                    resize(items.length/2,size+1);
+                    front = 0;
+                    size = items.length-1;
+                }
                 return t;
             }
         }
@@ -239,25 +229,26 @@ public class ArrayDeque<T> {
 //   {
 //       ArrayDeque e = new ArrayDeque();
 //       e.addLast(0);
-//       e.removeFirst();     //==> 0
-//       e.addLast(2);
-//       e.removeLast();     //==> 2
-//       e.addFirst(4);
+//       e.addFirst(1);
+//       e.get(1);      //==> 0
+//       e.addLast(3);
+//       e.get(0);     // ==> 1
 //       e.addLast(5);
-//       e.addLast(6);
-//       e.addFirst(7);
+//       e.removeFirst();     //==> 1
+//       e.addLast(7);
 //       e.addFirst(8);
 //       e.addLast(9);
-//       e.removeLast();     //==> 9
-//       e.removeFirst();    //==> 8
-//       e.removeFirst();    //==> 7
-//       e.removeFirst();    //==> 4
-//       e.removeFirst();    //==> 5
-//       e.removeLast();     //==> 6
-//       e.addLast(16);
-//       e.addLast(17);
-//       e.removeLast();     // ==> 17
-//                 //==> 17
-//       System.out.println(e.get(0));
+//       e.get(4);      //==> 7
+//       e.addFirst(11);
+//       e.removeLast();      //==> 9
+//       e.addLast(13);
+//       e.addFirst(14);
+//       e.get(0);      //==> 14
+//       e.removeFirst();     //==> 14
+//       e.removeFirst();     //==> 11
+//       e.removeLast();      //==> 13
+//       e.removeLast();      //==> 7
+//            //==> 8
+//       System.out.println(e.get(3));
 //    }
 }
