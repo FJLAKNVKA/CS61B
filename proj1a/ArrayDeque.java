@@ -90,12 +90,9 @@ public class ArrayDeque<T> {
     public T get(int index)
     {
        int t = front;
-       t = chage(--t);
-       while(index!=0)
-       {
-           t--;
-       }
-       return items[chage(t)];
+       t -= (index+1);
+       t = chage(t);
+       return items[t];
     }
 
     public T removeLast()
@@ -130,10 +127,6 @@ public class ArrayDeque<T> {
 //       e.addLast(0);
 //       e.addLast(1);
 //       e.addLast(2);
-//       e.addLast(3);
-//       e.addLast(4);
-//       e.addLast(5);
-//       e.addLast(6);
-//       System.out.println(e.removeLast());//==> 0
+//       System.out.println(e.get(0));
 //    }
 }
