@@ -1,6 +1,7 @@
 import com.sun.jdi.PrimitiveValue;
 
 import javax.net.ssl.SSLContext;
+import javax.security.auth.callback.CallbackHandler;
 import java.lang.reflect.GenericArrayType;
 import java.nio.file.StandardWatchEventKinds;
 import java.text.Format;
@@ -32,76 +33,36 @@ public class ArrayDeque<T> {
         return x;
     }
 
-    private void resize(int len,int idx)
+    private void resize(int len)
     {
-        if(presize==-1)idx--;
-        T[] a = (T[]) new Object[len];
-        int cnt = 0;
-        idx = chage(idx);
-        int Num=num;
-        while (Num!=0)
+        int t = size;
+        int Num = num;
+        T a[] = (T[]) new Object[len];
+        int cnt=0;
+        while(Num!=0)
         {
             Num--;
-            a[cnt++] = items[idx++];
-            idx = chage(idx);
+            a[cnt++] = items[chage(++t)];
         }
-        presize = 1;
-        prefront = 1;
-        items =a;
+        front = num;
+        size = len - 1;
+        items = a;
     }
 
     public void addLast(T x)
     {
         num++;
-        int q =size;
-        if(presize==-1)
-        {
-            size --;
-            size = chage(size);
-            items[size] = x;
-        }
-        else
-        {
-            items[size] = x;
-            size --;
-            size = chage(size);
-        }
-        if(size==items.length-1&& presize==-1)size--;
-        if(size>q)presize = 1;
-        if(num==items.length)
-        {
-            int t=size;
-            front = num;
-            resize(items.length*2,t+1);
-            size = items.length-1;
-        }
+        items[size] = x;
+        size = chage(++size);
+        if(num+1==items.length) resize(items.length*2);
     }
 
     public void addFirst(T x)
     {
         num++;
-        int q = front;
-        if(prefront==-1)
-        {
-            front++;
-            front = chage(front);
-            items[front] = x;
-        }
-        else
-        {
-            items[front] = x;
-            front++;
-            front = chage(front);
-        }
-        if(front==0&&prefront==-1)front++;
-        if(q>front)prefront = 1;
-        if(num== items.length)
-        {
-            int t = size;
-            front = num;
-            resize(items.length*2,t+1);
-            size = items.length-1;
-        }
+        items[front] = x;
+        front = chage(++front);
+        if(num+1== items.length) resize(items.length*2);
     }
 
     public boolean isEmpty()
@@ -117,34 +78,24 @@ public class ArrayDeque<T> {
 
     public void printDeque()
     {
-        int idx;
-        if(prefront==-1)idx=front;
-        else idx = front-1;
-        int t= num;
-        while(t!=0)
+        int t = front;
+        int Num = num;
+        while(Num!=0)
         {
-            t--;
-            idx--;
-            idx = chage(idx);
-            System.out.println(items[idx]);
+            Num--;
+            System.out.println(items[chage(--t)]);
         }
     }
 
     public T get(int index)
     {
-       if(index > num)return null;
-       T t =null;
-       int idx;
-       if(prefront!=-1)idx = front-1;
-       else idx = front;
+       int t = front;
+       t = chage(--t);
        while(index!=0)
        {
-           index--;
-           idx--;
+           t--;
        }
-       idx = chage(idx);
-       t = items[idx];
-       return t;
+       return items[chage(t)];
     }
 
     public T removeLast()
@@ -152,37 +103,10 @@ public class ArrayDeque<T> {
         if(!isEmpty())
         {
             num--;
-            if(presize<=0||size==items.length-1)
-            {
-                size++;
-                int len = items.length;
-                int q =size;
-                size = chage(size);
-                if(q>size)presize=-1;
-                if(size == 0)size++;
-                T t = items[size-1];
-                if (num * 4 <= len && len > 8)
-                {
-                    int l = len / 2;
-                    T[] a = (T[]) new Object[l];
-                    resize(l,size+1);
-                    front = num;
-                    size = items.length-1;
-                }
-                return t;
-            }
-            else
-            {
-                T t = items[size+1];
-                size++;
-                if (num * 4 <= items.length && items.length > 8)
-                {
-                    resize (items.length/2,size+1);
-                    front = num;
-                    size = items.length-1;
-                }
-                return t;
-            }
+            size = chage(++size);
+            T t = items[size];
+            if(num*4<=items.length)resize(items.length/2);
+            return t;
         }
         return null;
     }
@@ -192,37 +116,10 @@ public class ArrayDeque<T> {
         if(!isEmpty())
         {
             num--;
-            if(prefront<=0||front==0)
-            {
-                int len = items.length;
-                front--;
-                int q = front;
-                front = chage(front);
-                if(q<front)prefront = -1;
-                if(front ==len-1)front--;
-                T t = items[front+1];
-                if (num * 4 <= len && len > 8)
-                {
-                    int l = len / 2;
-                    T[] a = (T[]) new Object[l];
-                    resize(l,size+1);
-                    front = num;
-                    size = items.length-1;
-                }
-                return t;
-            }
-            else
-            {
-                T t = items[front-1];
-                front--;
-                if (num * 4 <= items.length && items.length > 8)
-                {
-                    resize(items.length/2,size+1);
-                    front = num;
-                    size = items.length-1;
-                }
-                return t;
-            }
+            front = chage(++front);
+            T t = items[front];
+            if(num*4<=items.length)resize(items.length/2);
+            return t;
         }
         return null;
     }
@@ -230,15 +127,16 @@ public class ArrayDeque<T> {
 //   public static void main(String[] args)
 //   {
 //       ArrayDeque e = new ArrayDeque();
-//       for(int i=1;i<=100;i++)
+//       for(int i=1;i<=9;i++)
 //       {
-//           e.addLast(i);
+//           e.addFirst(i);
 //       }
-//       for(int i=1;i<=75;i++)
-//       {
-//           e.removeFirst();
-//       }
-//       e.removeLast();
 //       System.out.println(e.get(0));
+//       for(int i=1;i<=3;i++)e.removeLast();
+//       for(int i=1;i<=8;i++)
+//       {
+//           e.addFirst(-i);
+//       }
+//       for(int i=1;i<=7;i++)e.removeLast();
 //    }
 }
