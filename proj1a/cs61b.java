@@ -1,2 +1,4 @@
-package PACKAGE_NAME;public interface cs61b {
+public interface cs61b <T>{
+    public void addFirst(T item);
+
 }

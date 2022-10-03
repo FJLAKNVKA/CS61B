@@ -8,7 +8,7 @@ import java.text.Format;
 import java.time.Period;
 import java.util.function.DoubleToLongFunction;
 
-public class ArrayDeque<T> {
+public class ArrayDeque<T> implements cs61b<T>{
 
     private T[] items;
     private int size;
