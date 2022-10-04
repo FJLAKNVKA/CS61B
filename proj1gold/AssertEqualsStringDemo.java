@@ -15,5 +15,7 @@ public class AssertEqualsStringDemo {
     /** This main method is optional. */
     public static void main(String[] args) {
         jh61b.junit.TestRunner.runTests(AssertEqualsStringDemo.class);
+        //String str = "addLast(" + 6 + ");\n";
+        //System.out.println(str);
     }
-} 
+}
