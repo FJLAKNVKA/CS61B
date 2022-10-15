@@ -18,7 +18,7 @@ public class GuitarString {
 
     /* Pluck the guitar string by replacing the buffer with white noise. */
     public void pluck() {
-       for(int i=1;i<buffer.capacity();i++)
+       for(int i=0;i<buffer.capacity();i++)
        {
            buffer.dequeue();
            buffer.enqueue(Math.random()-0.5);
