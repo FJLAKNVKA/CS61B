@@ -140,6 +140,7 @@ public class Game {
             char op = Character.toLowerCase(StdDraw.nextKeyTyped());
             //System.out.println(StdDraw.mouseX()+" " + StdDraw.mouseY());
             state += op;
+            System.out.println(state);
             if(op == 'w')
             {
                 //System.out.println("YES");
