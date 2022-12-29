@@ -3,6 +3,7 @@ import java.io.Serializable;
 import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
+import edu.princeton.cs.algs4.Transaction;
 import edu.princeton.cs.introcs.StdDraw;
 import java.awt.Color;
 import java.awt.Font;
@@ -199,6 +200,7 @@ public class Game {
                 else continue;
             }
         }
+        savegamefirst(world);
         return world;
     }
 
@@ -278,10 +280,49 @@ public class Game {
         }
     }
 
+    private void savegamefirst(TETile[][] finalWorld)
+    {
+        try
+        {
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("save.txt"));
+            out.writeObject(finalWorld);
+            out.writeObject(player);
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private TETile[][] getgamefirst()
+    {
+        TETile[][] finalWorld = null;
+        try {
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream("save.txt"));
+            finalWorld = (TETile[][]) in.readObject();
+            player = (Point) in.readObject();
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return finalWorld;
+    }
+
     private void loadgame()
     {
         ter.initialize(WIDTH + 1,HEIGHT + 1);
         TETile[][] world = getgame();
+        for(int i=0;i<=WIDTH;i++)
+            for(int j=0;j<=HEIGHT;j++)
+            {
+                if(world[i][j].character()==' ')world[i][j] = Tileset.NOTHING;
+                else if(world[i][j].character()=='#')world[i][j] = Tileset.WALL;
+                else if(world[i][j].character()=='·')world[i][j] = Tileset.FLOOR;
+                else if(world[i][j].character()=='@')world[i][j] = Tileset.PLAYER;
+                else if(world[i][j].character()=='█')world[i][j] = Tileset.LOCKED_DOOR;
+                else if(world[i][j].character()=='▢')world[i][j] = Tileset.UNLOCKED_DOOR;
+            }
         ter.renderFrame(world);
         play(world);
     }
@@ -290,6 +331,16 @@ public class Game {
     {
         TETile[][] world = getgame();
         play(world, 1, op);
+        for(int i=0;i<=WIDTH;i++)
+            for(int j=0;j<=HEIGHT;j++)
+            {
+                if(world[i][j].character()==' ')world[i][j] = Tileset.NOTHING;
+                else if(world[i][j].character()=='#')world[i][j] = Tileset.WALL;
+                else if(world[i][j].character()=='·')world[i][j] = Tileset.FLOOR;
+                else if(world[i][j].character()=='@')world[i][j] = Tileset.PLAYER;
+                else if(world[i][j].character()=='█')world[i][j] = Tileset.LOCKED_DOOR;
+                else if(world[i][j].character()=='▢')world[i][j] = Tileset.UNLOCKED_DOOR;
+            }
         return world;
     }
 
