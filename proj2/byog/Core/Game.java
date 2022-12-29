@@ -18,6 +18,8 @@ public class Game {
 
     private Point outdoor;
 
+    private String state = "";
+
     /**
      * Method used for playing a fresh game. The game should start from the main menu.
      */
@@ -29,6 +31,7 @@ public class Game {
         else if(op == 'l')loadgame();
         else if(op == 'q')
         {
+            System.out.println(state);
             System.exit(0);
         }
     }
@@ -78,6 +81,7 @@ public class Game {
         {
             if(!StdDraw.hasNextKeyTyped())continue;
             str = Character.toLowerCase(StdDraw.nextKeyTyped());
+            state += str;
             if(str == 'n'||str == 'l'||str == 'q')
                 return str;
         }
@@ -115,7 +119,7 @@ public class Game {
             char digit;
             if(!StdDraw.hasNextKeyTyped())continue;
             digit = Character.toLowerCase(StdDraw.nextKeyTyped());
-
+            state += digit;
             if(digit!='s')
             {
                 if(!Character.isDigit(digit))continue;
@@ -135,6 +139,7 @@ public class Game {
             while(!StdDraw.hasNextKeyTyped())continue;
             char op = Character.toLowerCase(StdDraw.nextKeyTyped());
             //System.out.println(StdDraw.mouseX()+" " + StdDraw.mouseY());
+            state += op;
             if(op == 'w')
             {
                 //System.out.println("YES");
@@ -165,6 +170,7 @@ public class Game {
                     if(str == 'q')
                     {
                         savegame(world);
+                        System.out.println(state);
                         System.exit(0);
                     }
                     else break;
